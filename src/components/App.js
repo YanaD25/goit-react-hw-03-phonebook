@@ -7,29 +7,22 @@ import Section from "./Section/Section";
 import GlobalStyled from "../GlobalStyles.component";
 export default class App extends Component {
   state = {
-    contacts: [
-      // { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      // { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      // { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      // { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
+    contacts: [],
     filter: "",
   };
-  componentDidMount(){
-    const persistedContacts  = localStorage.getItem('contacts');
+  componentDidMount() {
+    const persistedContacts = localStorage.getItem("contacts");
 
-    if(persistedContacts){
-      this.setState({contacts: JSON.parse(persistedContacts)})
+    if (persistedContacts) {
+      this.setState({ contacts: JSON.parse(persistedContacts) });
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
   }
-
-
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +30,6 @@ export default class App extends Component {
       [name]: value,
     });
   };
-
 
   removeContact = (id) => {
     const { contacts } = this.state;
@@ -53,7 +45,7 @@ export default class App extends Component {
       contact.name.toLowerCase()
     );
     if (names.includes(newName.toLowerCase())) {
-        alert(`${newName} is already in contact list`);
+      alert(`${newName} is already in contact list`);
     } else {
       this.setState((state) => ({
         contacts: [...state.contacts, contact],
@@ -74,7 +66,7 @@ export default class App extends Component {
     const { contacts } = this.state;
     return (
       <>
-      <GlobalStyled/>
+        <GlobalStyled />
         <Section title="Phonebook">
           <ContactForm addContact={this.addContact} />
         </Section>
